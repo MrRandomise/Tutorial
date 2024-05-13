@@ -15,8 +15,6 @@ namespace Game.App
         private IGameMediator[] mediators;
         
         private float remainingSeconds;
-        
-        public bool IsPaused { get; set; }
 
         [ServiceInject]
         public void Construct(ApplicationManager appManager, GameRepository gameRepository, IGameMediator[] mediators)
@@ -63,18 +61,13 @@ namespace Game.App
 
         public void Save()
         {
-            if (this.IsPaused)
-            {
-                return;
-            }
-            
             for (int i = 0, count = this.mediators.Length; i < count; i++)
             {
                 var mediator = this.mediators[i];
                 mediator.SaveData(this.gameRepository);
             }
 
-            this.gameRepository.SaveAllStates();
+            this.gameRepository.SaveState();
             this.remainingSeconds = SAVE_PERIOD_IN_SECONDS;
         }
     }

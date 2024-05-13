@@ -1,10 +1,9 @@
 namespace Game.App
 {
-    
-    
     public readonly struct LoadingResult
     {
         public readonly bool success;
+
         public readonly string error;
 
         private LoadingResult(bool success, string error)
@@ -23,8 +22,4 @@ namespace Game.App
             return new LoadingResult(false, error);
         }
     }
-    
-    
-    
-    
 }

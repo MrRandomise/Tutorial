@@ -2,7 +2,6 @@
 using Game.Tutorial.App;
 using JetBrains.Annotations;
 using Services;
-using UnityEngine;
 
 namespace Game.Tutorial.Development
 {
@@ -12,14 +11,19 @@ namespace Game.Tutorial.Development
         protected override void SetupData()
         {
             var debugConfig = DebugTutorialConfig.Instance;
-            if (debugConfig.isDebug)
-            {
-                this.tutorialManager.Initialize(debugConfig.isCompleted, (int) debugConfig.currentStep);
-            }
-            else
+            if (!debugConfig.isDebug)
             {
                 base.SetupData();
+                return;
             }
+
+            var assetSuppier = ServiceLocator.GetService<TutorialAssetSupplier>();
+            var stepList = assetSuppier.LoadStepList();
+
+            var isCompleted = debugConfig.isCompleted;
+            var stepIndex = stepList.IndexOf(debugConfig.currentStep);
+
+            this.tutorialManager.Initialize(isCompleted, stepIndex);
         }
     }
 }

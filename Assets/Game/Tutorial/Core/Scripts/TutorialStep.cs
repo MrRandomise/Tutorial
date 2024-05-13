@@ -4,8 +4,11 @@ namespace Game.Tutorial
     {
         WELCOME = 0,
         HARVEST_RESOURCE = 1,
-        SELL_RESOURCE = 2,
-        UPGRADE_HERO = 3,
-        DESTROY_ENEMY = 4,
+        CONVERT_RESOURCE = 2,
+        TAKE_RESOURCE = 3,
+        SELL_RESOURCE = 4,
+        UPGRADE_HERO = 5,
+        DESTROY_ENEMY = 6,
+        COMPLETE_QUEST = 7
     }
 }

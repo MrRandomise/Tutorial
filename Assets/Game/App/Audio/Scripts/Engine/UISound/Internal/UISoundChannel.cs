@@ -6,6 +6,7 @@ namespace Game
     public sealed class UISoundChannel : MonoBehaviour
     {
         public event Action<bool> OnEnabled;
+
         public event Action<float> OnVolumeChanged;
 
         public bool IsEnable

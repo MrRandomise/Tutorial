@@ -9,15 +9,12 @@ namespace Game.App
         public delegate void SleepDelegate(long sleepSeconds);
 
         public event SleepDelegate OnStarted;
+
         public event Action OnPaused;
+
         public event SleepDelegate OnResumed;
+
         public event Action OnEnded;
-        
-        private bool isActive;
-        private bool isPaused;
-        private long realtimeSeconds;
-        private float realtimeSinceStartupCache;
-        private float secondAcc;
 
         [PropertySpace]
         [ReadOnly]
@@ -41,10 +38,25 @@ namespace Game.App
             get { return this.realtimeSeconds; }
         }
 
+        private bool isActive;
+
+        private bool isPaused;
+
+        private long realtimeSeconds;
+
+        private float realtimeSinceStartupCache;
+
+        private float secondAcc;
+
         [Title("Methods")]
         [Button]
         public void Play(long realtimeSeconds, long sleepSeconds = 0)
         {
+            if (this.isActive)
+            {
+                throw new Exception("Realtime manager is already active!");
+            }
+
             this.isActive = true;
             this.isPaused = false;
             this.realtimeSeconds = realtimeSeconds;
@@ -56,6 +68,11 @@ namespace Game.App
         [Button]
         public void End()
         {
+            if (!this.isActive)
+            {
+                return;
+            }
+
             this.isActive = false;
             this.isPaused = false;
             this.OnEnded?.Invoke();

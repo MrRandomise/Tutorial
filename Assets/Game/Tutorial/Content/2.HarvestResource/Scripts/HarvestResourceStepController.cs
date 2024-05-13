@@ -3,7 +3,6 @@ using Game.Tutorial.App;
 using Game.Tutorial.Gameplay;
 using Game.Tutorial.UI;
 using GameSystem;
-using Services;
 using UnityEngine;
 
 namespace Game.Tutorial
@@ -12,6 +11,8 @@ namespace Game.Tutorial
     public sealed class HarvestResourceStepController : TutorialStepController
     {
         private PointerManager pointerManager;
+        
+        private NavigationManager navigationManager;
 
         private ScreenTransform screenTransform;
         
@@ -30,6 +31,7 @@ namespace Game.Tutorial
         {
             this.pointerManager = context.GetService<PointerManager>();
             this.screenTransform = context.GetService<ScreenTransform>();
+            this.navigationManager = context.GetService<NavigationManager>();
 
             var heroService = context.GetService<IHeroService>();
             this.inspector.Construct(heroService, this.config);
@@ -43,13 +45,17 @@ namespace Game.Tutorial
             TutorialAnalytics.LogEventAndCache("tutorial_step_2__harvest_resource_started");
             this.inspector.Inspect(callback: this.NotifyAboutCompleteAndMoveNext);
             this.pointerManager.ShowPointer(this.pointerTransform.position, this.pointerTransform.rotation);
+            var targetPosition = this.pointerTransform.position;
+            this.navigationManager.StartLookAt(targetPosition);
+
             this.panelShower.Show(this.screenTransform.Value);
         }
 
         protected override void OnStop()
         {
             TutorialAnalytics.LogEventAndCache("tutorial_step_2__harvest_resource_completed");
-            this.panelShower.Hide();
+            this.panelShower.Hide();            
+            this.navigationManager.Stop();
             this.pointerManager.HidePointer();
         }
     }

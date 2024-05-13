@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using Services;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,6 +10,7 @@ namespace Game.App
     public sealed class ApplicationLoader : MonoBehaviour
     {
         public event Action OnCompleted;
+
         public event Action<string> OnFailed;
 
         [SerializeField]
@@ -20,6 +20,8 @@ namespace Game.App
         [SerializeField]
         [FormerlySerializedAs("config")]
         private LoadingPipeline pipeline;
+
+        private int taskPointer;
 
         private void Start()
         {
@@ -46,11 +48,11 @@ namespace Game.App
             this.OnCompleted?.Invoke();
         }
 
-        private UniTask<LoadingResult> DoTask(Type taskType)
+        private Task<LoadingResult> DoTask(Type taskType)
         {
-            var tcs = new UniTaskCompletionSource<LoadingResult>();
+            var tcs = new TaskCompletionSource<LoadingResult>();
             var loadingTask = (ILoadingTask) ServiceInjector.Instantiate(taskType);
-            loadingTask.Do(result => tcs.TrySetResult(result));
+            loadingTask.Do(result => tcs.SetResult(result));
             return tcs.Task;
         }
     }

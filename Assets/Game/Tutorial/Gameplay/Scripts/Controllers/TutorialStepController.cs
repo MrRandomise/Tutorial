@@ -52,6 +52,8 @@ namespace Game.Tutorial.Gameplay
 
         protected void NotifyAboutComplete()
         {
+            Debug.Log("NotifyAboutComplete"+this.tutorialManager.CurrentStep +":"+ this.step);
+
             if (this.tutorialManager.CurrentStep == this.step)
             {
                 this.tutorialManager.FinishCurrentStep();
@@ -59,7 +61,9 @@ namespace Game.Tutorial.Gameplay
         }
 
         protected void NotifyAboutMoveNext()
-        {
+        {            
+            Debug.Log("NotifyAboutMoveNext"+this.tutorialManager.CurrentStep +":"+ this.step);
+
             if (this.tutorialManager.CurrentStep == this.step)
             {
                 this.tutorialManager.MoveToNextStep();
@@ -68,6 +72,8 @@ namespace Game.Tutorial.Gameplay
 
         protected void NotifyAboutCompleteAndMoveNext()
         {
+            Debug.Log("NotifyAboutCompleteAndMoveNext"+this.tutorialManager.CurrentStep +":"+ this.step);
+
             if (this.tutorialManager.CurrentStep == this.step)
             {
                 this.tutorialManager.FinishCurrentStep();

@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using Services;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Game.App
     {
         private const string LAUNCH_PIPELINE = "GameLaunch (Pipeline)";
 
-        public async UniTask LaunchGame()
+        public async Task LaunchGame()
         {
             var taskPipeline = Resources.Load<LoadingPipeline>(LAUNCH_PIPELINE);
             var taskList = taskPipeline.GetTaskList();
@@ -21,11 +20,11 @@ namespace Game.App
             }
         }
 
-        private static UniTask<LoadingResult> DoTask(Type taskType)
+        private static Task<LoadingResult> DoTask(Type taskType)
         {
-            var tcs = new UniTaskCompletionSource<LoadingResult>();
+            var tcs = new TaskCompletionSource<LoadingResult>();
             var loadingTask = (ILoadingTask) ServiceInjector.Instantiate(taskType);
-            loadingTask.Do(result => tcs.TrySetResult(result));
+            loadingTask.Do(result => tcs.SetResult(result));
             return tcs.Task;
         }
     }
