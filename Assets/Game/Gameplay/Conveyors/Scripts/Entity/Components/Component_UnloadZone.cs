@@ -64,6 +64,7 @@ namespace Game.Gameplay
 
         public int ExtractAll()
         {
+            Debug.Log(storage.Current+"___");
             var resources = this.storage.Current;
             this.storage.Current = 0;
             return resources;

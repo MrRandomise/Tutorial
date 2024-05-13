@@ -5,7 +5,6 @@ namespace AI.BTree
         bool IsRunning { get; }
 
         void Run(IBehaviourCallback callback = null);
-        
         void Abort();
     }
 }

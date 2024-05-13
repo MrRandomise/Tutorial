@@ -23,7 +23,7 @@ namespace Game.Meta
         private MissionsManager missionsManager;
 
         private MoneyPanelAnimator_AddMoney moneyPanelAnimator;
-
+        
         public void Construct(
             MissionsManager missionsManager,
             MoneyPanelAnimator_AddMoney moneyPanelAnimator

@@ -259,8 +259,11 @@ namespace GameSystem
         private struct Field
         {
             public Type type;
+
             public object value;
+
             public bool isElement;
+
             public bool isService;
         }
     }

@@ -50,7 +50,6 @@ namespace Elementary
             }
             catch (Exception)
             {
-                // ignored
             }
         }
 #endif

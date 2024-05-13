@@ -19,4 +19,5 @@ MonoBehaviour:
   editorScripts: []
   releaseClassNames:
   - Game.Meta.MissionsAssetSupplier
+  - Game.Meta.MissionsDao
   - Game.Meta.MisssionsMediator

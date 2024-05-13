@@ -1,6 +1,8 @@
 using System;
 using Entities;
+using Game.Gameplay.Conveyors;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Game.Gameplay.Player
 {
@@ -32,8 +34,8 @@ namespace Game.Gameplay.Player
                 {
                     throw new Exception("Already entered into conveyor!");
                 }
-
                 this.TargetConveyor = conveyor;
+                Debug.Log(TargetConveyor.Get<Component_Id>().Id);
                 this.IsEntered = true;
                 this.OnEntered?.Invoke(conveyor);
             }
@@ -44,6 +46,7 @@ namespace Game.Gameplay.Player
                 {
                     return;
                 }
+                Debug.Log(TargetConveyor.Get<Component_Id>().Id);
 
                 var previousConveyor = this.TargetConveyor;
                 this.TargetConveyor = null;
